@@ -9,7 +9,7 @@ const dayjs = require('dayjs')
 const fs = require('fs')
 const path = require('path')
 
-const clipboardy = require('clipboardy');
+const ncp = require("copy-paste");
 
 async function main() {
   if (!config.noteFolder
@@ -57,10 +57,9 @@ async function createNewNote () {
     fs.copyFileSync(path.resolve(config.template), notePath)
   }
   
-  clipboardy.writeSync(folderName + ' ');
+  //copy(folderName + ' ')
+  ncp.copy(folderName + ' ', function () { })
   await open(notePath)
 }
-
-
 
 main()
