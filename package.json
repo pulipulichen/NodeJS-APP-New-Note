@@ -1,0 +1,19 @@
+{
+  "name": "nodejs-app-new-note",
+  "version": "1.0.0",
+  "description": "",
+  "main": "index.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/pulipulichen/NodeJS-APP-New-Note.git"
+  },
+  "author": "",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/pulipulichen/NodeJS-APP-New-Note/issues"
+  },
+  "homepage": "https://github.com/pulipulichen/NodeJS-APP-New-Note#readme"
+}
