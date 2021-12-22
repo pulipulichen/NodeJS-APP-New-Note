@@ -9,11 +9,12 @@ const dayjs = require('dayjs')
 const fs = require('fs')
 const path = require('path')
 
-const ncp = require("copy-paste");
+const ncp = require("copy-paste")
+const openExplorer = require('open-file-explorer')
 
 async function main() {
-  if (!config.noteFolder
-          || fs.lstatSync(config.noteFolder).isDirectory() === false) {
+  //console.log(config.noteFolder, fs.lstatSync(config.noteFolder))
+  if (!config.noteFolder) {
     //console.log('error')
     await openErrorMessage()
     return false
@@ -59,6 +60,8 @@ async function createNewNote () {
   
   //copy(folderName + ' ')
   ncp.copy(folderName + ' ', function () { })
+  
+  openExplorer(folderPath, () => {})
   await open(notePath)
 }
 
