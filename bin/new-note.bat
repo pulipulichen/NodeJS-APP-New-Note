@@ -1,3 +1,3 @@
-cd "%~dp"
+cd /D "%~dp0"
 cd ..
 node index.js
