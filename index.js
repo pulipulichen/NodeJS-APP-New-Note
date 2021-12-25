@@ -11,6 +11,7 @@ const path = require('path')
 
 const ncp = require("copy-paste")
 const openExplorer = require('open-file-explorer')
+const { exec } = require("child_process");
 
 async function main() {
   //console.log(config.noteFolder, fs.lstatSync(config.noteFolder))
@@ -62,7 +63,13 @@ async function createNewNote () {
   ncp.copy(folderName + ' ', function () { })
   
   openExplorer(folderPath, () => {})
-  await open(notePath)
+  //console.log('open', notePath)
+  if (!config.editor) {
+    await open(notePath)
+  }
+  else {
+    exec(`"${config.editor}" "${notePath}"`, (error, stdout, stderr) => {})
+  }
 }
 
 main()
