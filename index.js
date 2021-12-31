@@ -1,19 +1,40 @@
 /* global process */
 
-const config = require('./config.js')
-
-const tempDirectory = require('temp-dir')
-const open = require('open')
-const dayjs = require('dayjs')
-
 const fs = require('fs')
 const path = require('path')
+const { exec } = require("child_process")
+
+const openFile = require('./openFile.js')
+const tempDirectory = require('temp-dir')
+const openExplorer = require('open-file-explorer')
+
+let isConfigExists = true
+if (fs.existsSync(path.resolve('./config.js')) === false) {
+  let warningFile = path.resolve(tempDirectory, 'nodejs-app-new-note-error.txt')
+
+  //if (fs.existsSync(warningFile) === false) {
+  fs.writeFileSync(warningFile, 'Please create config.js from config.example.js')
+  //}
+
+  console.log(warningFile)
+  openFile(warningFile, 'notepad')
+  openExplorer(path.resolve('./'))
+  //process.exit()
+  isConfigExists = false
+}
+
+let config
+
+const dayjs = require('dayjs')
 
 const ncp = require("copy-paste")
-const openExplorer = require('open-file-explorer')
-const { exec } = require("child_process");
 
 async function main() {
+  if (isConfigExists === false) {
+    return false
+  }
+  
+  config = require('./config.js')
   //console.log(config.noteFolder, fs.lstatSync(config.noteFolder))
   if (!config.noteFolder) {
     //console.log('error')
@@ -34,7 +55,7 @@ async function openErrorMessage() {
 
   //console.log(warningFile)
 
-  await open(warningFile)
+  await openFile(warningFile)
 }
 
 async function createNewNote () {
@@ -65,7 +86,7 @@ async function createNewNote () {
   openExplorer(folderPath, () => {})
   //console.log('open', notePath)
   if (!config.editor) {
-    await open(notePath)
+    await openFile(notePath)
   }
   else {
     exec(`"${config.editor}" "${notePath}"`, (error, stdout, stderr) => {})
