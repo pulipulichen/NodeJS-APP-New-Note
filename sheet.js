@@ -68,7 +68,7 @@ async function createNewNote () {
     fs.mkdirSync(folderPath, { recursive: true })
   }
   
-  let ext = path.extname(config.template)
+  let ext = path.extname(config.template.sheet)
   
   let notePath = path.resolve(folderPath, folderName + ext)
   //console.log(notePath, fs.existsSync(notePath))
@@ -77,7 +77,7 @@ async function createNewNote () {
     //notePath = path.resolve(folderName, baseName + ext)
     
     //console.log(path.resolve(config.template), notePath)
-    fs.copyFileSync(path.resolve(config.template), notePath)
+    fs.copyFileSync(path.resolve(config.template.sheet), notePath)
   }
   
   //copy(folderName + ' ')

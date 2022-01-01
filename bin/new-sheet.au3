@@ -4,9 +4,9 @@
 #include <WinAPIFiles.au3>
 #include <Array.au3>
 
-#pragma compile(Icon, '..\notes.ico')
+#pragma compile(Icon, '..\sheet.ico')
 
 $ParentDir = StringLeft(@scriptDir,StringInStr(@scriptDir,"\",0,-1)-1)
-$CMD = "npm run note"
+$CMD = "npm run sheet"
 Run(@ComSpec & " /c " & $CMD, $ParentDir, @SW_HIDE)
 #RunWait(@ComSpec & " /c " & $CMD, $ParentDir, @SW_SHOW)
