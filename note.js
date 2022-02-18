@@ -77,11 +77,11 @@ async function createNewNote () {
     //notePath = path.resolve(folderName, baseName + ext)
     
     //console.log(path.resolve(config.template), notePath)
+    
+    //copy(folderName + ' ')
+    ncp.copy(folderName + ' ', function () { })
     fs.copyFileSync(path.resolve(config.template.note), notePath)
   }
-  
-  //copy(folderName + ' ')
-  ncp.copy(folderName + ' ', function () { })
   
   openExplorer(folderPath, () => {})
   //console.log('open', notePath)
