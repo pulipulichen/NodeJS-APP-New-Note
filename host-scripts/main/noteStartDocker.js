@@ -37,7 +37,7 @@ exec(`MY_UID="$(id -u)" MY_GID="$(id -g)" docker-compose run app npm run docker-
   
   //console.log(hostPath, path.dirname(hostPath), exists)
   
-  if (!exists) {  
+  if (!exists && config.enableRenameWatch) {  
     copyDateHeader(hostPath)
     
     process.env['GUEST_NOTE_PATH'] = targetPath
@@ -58,6 +58,9 @@ exec(`MY_UID="$(id -u)" MY_GID="$(id -g)" docker-compose run app npm run docker-
       
     })
     
+  }
+  else {
+    openExplorer(path.dirname(hostPath))
   }
   
   //console.log('完成')

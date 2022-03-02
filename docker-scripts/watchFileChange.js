@@ -44,6 +44,11 @@ function watchFileChange(notePath) {
       resolve(path.resolve(path.dirname(dirname), folderName, newFilename + '.note' + path.extname(notePath)))
       watcher.close()
     });
+    
+    // watcher timeout
+    setTimeout(() => {
+      watcher.close()
+    }, 30 * 60 * 1000)
   })
 }
 
@@ -60,21 +65,30 @@ async function parseFilenameFromFile(notePath) {
       
       let data = text
 
-      //fs.writeFileSync('/app/notes/test2.txt', JSON.stringify([notePath, data, 'changed']), 'utf-8')
+      fs.writeFileSync('/app/notes/test2.txt', JSON.stringify([notePath, data, 'changed']), 'utf-8')
 
       data = data.trim()
 
-
       let lines = data.split('\n')
+      let line
 
       for (let i = 0; i < lines.length; i++) {
-        let line = lines[i].trim()
+        line = lines[i].trim()
         if (line.startsWith(basename)) {
+          if (notePath.endsWith('.xlsx') && line.indexOf(',') > 0) {
+            line = line.slice(0, line.indexOf(','))
+          }
+          fs.writeFileSync('/app/notes/test4.txt', JSON.stringify([notePath, line, 'changed']), 'utf-8')
           resolve(line)
           return true
         }
       }
-      resolve(lines[0].trim())
+      
+      line = lines[0].trim()
+      if (notePath.endsWith('.xlsx') && line.indexOf(',') > 0) {
+        line = line.slice(0, line.indexOf(','))
+      }
+      resolve(line)
     })
   })
 

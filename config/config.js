@@ -6,5 +6,6 @@ module.exports = {
     sheet: './note-template/sheet-new.xlsx',
   },
   
-  editor: null
+  editor: null,
+  enableRenameWatch: true
 }

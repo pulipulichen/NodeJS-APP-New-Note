@@ -26,14 +26,40 @@ exec(`MY_UID="$(id -u)" MY_GID="$(id -g)" docker-compose run app npm run docker-
   console.log(stdout)
   
   // 直接取得最後一行
-  let {targetPath} = getNoteBuildResult(stdout)
+  let {targetPath, exists} = getNoteBuildResult(stdout)
   
   let hostPath = getTargetPathInHost(targetPath)
   //console.log(1)
   
   openFile(hostPath)
   //console.log(2)
-  openExplorer(path.dirname(hostPath))
+  //openExplorer(path.dirname(hostPath))
+  
+  if (!exists && config.enableRenameWatch) {  
+    copyDateHeader(hostPath)
+    
+    process.env['GUEST_NOTE_PATH'] = targetPath
+    
+    exec(`MY_UID="$(id -u)" MY_GID="$(id -g)" docker-compose run app npm run docker-note-watch`, (error, stdout, stderr) => {
+      //console.log('555不存在，開始watch')
+      //console.log(targetPath)
+      
+      //console.log(error, stderr, stdout)
+      let guestRenamePath = getNoteRenameResult(stdout)
+      let hostRenamePath = getTargetPathInHost(guestRenamePath)
+      openFile(hostRenamePath)
+      openExplorer(path.dirname(hostRenamePath))
+      
+      setTimeout(() => {
+        process.exit()
+      }, 3000)
+      
+    })
+    
+  }
+  else {
+    openExplorer(path.dirname(hostPath))
+  }
 });
 
 
