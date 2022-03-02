@@ -15,7 +15,7 @@ services:
       - ./note-template:/app/note-template
       - ./docker-scripts:/app/docker-scripts
       - ./config:/app/config
-      - ./${NOTES_PATH}:/app/notes
+      - ${NOTES_PATH}:/app/notes
     environment:
       - DISPLAY=${DISPLAY}
     #Mount port 1000 on the container side to port 8080 on the host side.

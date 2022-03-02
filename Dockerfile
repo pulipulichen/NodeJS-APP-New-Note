@@ -16,11 +16,12 @@ RUN npm i
 
 # Error: libGL.so.1: cannot open shared object file: No such file or directory
 # https://stackoverflow.com/a/63377623
-RUN apt-get install ffmpeg libsm6 libxext6  -y
-RUN apt install libgl1-mesa-glx -y
+#RUN apt-get install ffmpeg libsm6 libxext6  -y
+#RUN apt install libgl1-mesa-glx -y
 
-RUN apt-get install -y python3-opencv -y
-RUN pip install opencv-python
+#RUN apt-get install -y python3-opencv -y
+#RUN pip install opencv-python
+
 
 #Package in container.json and packate-lock.Make sure that two of json are copied
 
@@ -30,4 +31,4 @@ RUN pip install opencv-python
 
 #RUN ls /app/*
 #CMD ["npm","run", "4.webpack-build-production"]
-CMD ["npm", "run","gui-test"]
+#CMD ["npm", "run","gui-test"]
