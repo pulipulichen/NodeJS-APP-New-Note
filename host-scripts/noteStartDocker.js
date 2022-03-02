@@ -14,6 +14,7 @@ const config = require('./../config/config.js')
 process.env['NOTES_PATH'] = config.noteFolder
 
 const getNoteBuildResult = require('./getNoteBuildResult.js')
+const getNoteRenameResult = require('./getNoteRenameResult.js')
 const getTargetPathInHost = require('./getTargetPathInHost.js')
 const copyDateHeader = require('./copyDateHeader.js')
 
@@ -32,7 +33,7 @@ exec(`MY_UID="$(id -u)" MY_GID="$(id -g)" docker-compose run app npm run docker-
   
   openFile(hostPath)
   //console.log(2)
-  openExplorer(path.dirname(hostPath))
+  //openExplorer(path.dirname(hostPath))
   
   //console.log(hostPath, path.dirname(hostPath), exists)
   
@@ -46,7 +47,11 @@ exec(`MY_UID="$(id -u)" MY_GID="$(id -g)" docker-compose run app npm run docker-
       //console.log(targetPath)
       
       //console.log(error, stderr, stdout)
-      console.log(stdout)
+      let guestRenamePath = getNoteRenameResult(stdout)
+      let hostRenamePath = getTargetPathInHost(guestRenamePath)
+      openFile(hostRenamePath)
+      openExplorer(path.dirname(hostRenamePath))
+      
       setTimeout(() => {
         process.exit()
       }, 3000)
@@ -55,7 +60,7 @@ exec(`MY_UID="$(id -u)" MY_GID="$(id -g)" docker-compose run app npm run docker-
     
   }
   
-  console.log('完成')
+  //console.log('完成')
 });
 
 

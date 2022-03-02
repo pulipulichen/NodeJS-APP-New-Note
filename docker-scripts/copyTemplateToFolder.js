@@ -3,10 +3,11 @@
 const path = require('path')
 const fs = require('fs')
 
+const getDateStirng = require('./getDateStirng.js')
 //const ncp = require("copy-paste")
 
 function copyTemplateToFolder(folder, template) {
-  let basename = path.basename(folder)
+  let basename = getDateStirng()
   
   let ext = path.extname(template)
   
