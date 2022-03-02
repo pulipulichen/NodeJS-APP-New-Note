@@ -2,7 +2,11 @@ const fs = require('fs')
 const dayjs = require('dayjs')
 const path = require('path')
 
-//const config = require('./../config/config.js')
+const config = require('./../config/config.js')
+let noteFolder = config.noteFolder
+if (fs.existsSync(noteFolder) === false) {
+  noteFolder = '/app/notes'
+}
 
 // 1. get current date string
 const getDateStirng = require('./getDateStirng.js')
@@ -28,7 +32,7 @@ async function getFolder() {
   //  fs.mkdirSync(folderPath, { recursive: true })
   //}
   
-  let folders = await getDirectories('/app/notes')
+  let folders = await getDirectories(noteFolder)
   
   //fs.writeFileSync('/app/notes/test.txt', JSON.stringify(folders), 'utf-8')
   //console.log(folders)
@@ -37,11 +41,11 @@ async function getFolder() {
     let folder = folders[i]
     
     if (folder.startsWith(folderName)) {
-      return path.resolve('/app/notes', folder)
+      return path.resolve(noteFolder, folder)
     }
   }
   
-  let folderPath = path.resolve('/app/notes', folderName)
+  let folderPath = path.resolve(noteFolder, folderName)
   fs.mkdirSync(folderPath, { recursive: true })
   return folderPath
 }

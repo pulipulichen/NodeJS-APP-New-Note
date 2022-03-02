@@ -1,8 +1,8 @@
 const fs = require('fs')
 const path = require('path')
 
-const openFile = require('./open-file.js')
-const openExplorer = require('./open-explorer.js')
+const openFile = require('./openFile.js')
+const openExplorer = require('./openExplorer.js')
 const tempDirectory = require('temp-dir')
 //const openExplorer = require('open-file-explorer')
 

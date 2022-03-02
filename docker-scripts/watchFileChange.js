@@ -26,7 +26,7 @@ function watchFileChange(notePath) {
     
     let newFilename = await parseFilenameFromFile(notePath)
     
-    fs.writeFileSync('/app/notes/test.txt', JSON.stringify([notePath, newFilename, 'changed']), 'utf-8')
+    //fs.writeFileSync('/app/notes/test.txt', JSON.stringify([notePath, newFilename, 'changed']), 'utf-8')
     
     let dirname = path.dirname(notePath)
     

@@ -25,3 +25,8 @@ exec(`MY_UID="$(id -u)" MY_GID="$(id -g)" docker-compose run app npm run note-do
     }
     console.log(`stdout: ${stdout}`);
 });
+
+//const waitAndOpenFile = require('./waitAndOpenFile.js')
+//setTimeout(() => {
+//  waitAndOpenFile('note-new.docx')
+//}, 1000)
