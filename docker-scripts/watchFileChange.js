@@ -65,7 +65,7 @@ async function parseFilenameFromFile(notePath) {
       
       let data = text
 
-      fs.writeFileSync('/app/notes/test2.txt', JSON.stringify([notePath, data, 'changed']), 'utf-8')
+      //fs.writeFileSync('/app/notes/test2.txt', JSON.stringify([notePath, data, 'changed']), 'utf-8')
 
       data = data.trim()
 
