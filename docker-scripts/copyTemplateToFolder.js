@@ -16,7 +16,8 @@ function copyTemplateToFolder(folder, template) {
   
   //fs.writeFileSync('/app/notes/test.txt', JSON.stringify([templatePath, targetPath]), 'utf-8')
   
-  if (fs.existsSync(targetPath) === false) {
+  let exists = fs.existsSync(targetPath)
+  if (exists === false) {
     //let baseName = folderName
     //notePath = path.resolve(folderName, baseName + ext)
     
@@ -30,9 +31,16 @@ function copyTemplateToFolder(folder, template) {
     
     //ncp.copy(stringToCopy, function () { })
     fs.copyFileSync(templatePath, targetPath)
-    return targetPath
   }
   
+  if (path.basename(path.dirname(targetPath)).length === 8) {
+    exists = false
+  }
+  
+  return {
+    targetPath,
+    exists
+  }
 }
 
 module.exports = copyTemplateToFolder

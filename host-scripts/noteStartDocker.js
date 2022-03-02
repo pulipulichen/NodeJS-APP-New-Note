@@ -13,18 +13,52 @@ if (checkConfig() === false) {
 const config = require('./../config/config.js')
 process.env['NOTES_PATH'] = config.noteFolder
 
+const getNoteBuildResult = require('./getNoteBuildResult.js')
+const getTargetPathInHost = require('./getTargetPathInHost.js')
+const copyDateHeader = require('./copyDateHeader.js')
+
+const openFile = require('./openFile.js')
+const openExplorer = require('./openExplorer.js')
+
 //console.log(path.resolve(__dirname, '../'), 2)
-exec(`MY_UID="$(id -u)" MY_GID="$(id -g)" docker-compose run app npm run note-docker-exec`, (error, stdout, stderr) => {
-    if (error) {
-        console.log(`error: ${error.message}`);
-        return false
-    }
-    if (stderr) {
-        console.log(`stderr: ${stderr}`);
-        return false
-    }
-    console.log(`stdout: ${stdout}`);
+exec(`MY_UID="$(id -u)" MY_GID="$(id -g)" docker-compose run app npm run docker-note-build`, (error, stdout, stderr) => {
+  console.log(stdout)
+  
+  // 直接取得最後一行
+  let {targetPath, exists} = getNoteBuildResult(stdout)
+  
+  let hostPath = getTargetPathInHost(targetPath)
+  //console.log(1)
+  
+  openFile(hostPath)
+  //console.log(2)
+  openExplorer(path.dirname(hostPath))
+  
+  //console.log(hostPath, path.dirname(hostPath), exists)
+  
+  if (!exists) {  
+    copyDateHeader(hostPath)
+    
+    process.env['GUEST_NOTE_PATH'] = targetPath
+    
+    exec(`MY_UID="$(id -u)" MY_GID="$(id -g)" docker-compose run app npm run docker-note-watch`, (error, stdout, stderr) => {
+      //console.log('555不存在，開始watch')
+      //console.log(targetPath)
+      
+      //console.log(error, stderr, stdout)
+      console.log(stdout)
+      setTimeout(() => {
+        process.exit()
+      }, 3000)
+      
+    })
+    
+  }
+  
+  console.log('完成')
 });
+
+
 
 //const waitAndOpenFile = require('./waitAndOpenFile.js')
 //setTimeout(() => {

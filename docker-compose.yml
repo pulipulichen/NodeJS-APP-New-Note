@@ -21,6 +21,7 @@ services:
       - ${NOTES_PATH}:/app/notes
     environment:
       - DISPLAY=${DISPLAY}
+      - GUEST_NOTE_PATH=${GUEST_NOTE_PATH}
     #Mount port 1000 on the container side to port 8080 on the host side.
     #ports:
     #  - "8080:8080"
