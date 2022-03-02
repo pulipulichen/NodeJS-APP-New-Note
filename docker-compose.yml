@@ -13,6 +13,7 @@ services:
     tty: true
     #Mount the files in the directory to the app directory in the container
     volumes: 
+      - /etc/localtime:/etc/localtime:ro
       - ./package.json:/app/package.json
       - /tmp/.X11-unix:/tmp/.X11-unix
       - ./note-template:/app/note-template
@@ -22,6 +23,7 @@ services:
     environment:
       - DISPLAY=${DISPLAY}
       - GUEST_NOTE_PATH=${GUEST_NOTE_PATH}
+      - TZ=${TZ}
     #Mount port 1000 on the container side to port 8080 on the host side.
     #ports:
     #  - "8080:8080"

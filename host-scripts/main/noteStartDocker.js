@@ -13,6 +13,9 @@ if (checkConfig() === false) {
 const config = require('./../../config/config.js')
 process.env['NOTES_PATH'] = config.noteFolder
 
+const setupTZ = require('./../setupTZ.js')
+setupTZ()
+
 const getNoteBuildResult = require('./../getNoteBuildResult.js')
 const getNoteRenameResult = require('./../getNoteRenameResult.js')
 const getTargetPathInHost = require('./../getTargetPathInHost.js')

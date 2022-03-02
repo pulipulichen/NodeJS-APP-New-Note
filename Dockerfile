@@ -9,7 +9,7 @@ WORKDIR /app
 #RUN apt-get update
 
 # UPDATE 20220221 
-RUN echo "20220302-2116"
+RUN echo "20220302-2117"
 COPY package.json ./
 # package.Install the package described in json.
 RUN npm i

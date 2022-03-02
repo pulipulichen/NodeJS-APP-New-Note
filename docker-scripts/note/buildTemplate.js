@@ -13,6 +13,8 @@ async function main() {
   //if (noteFile) {
   //  watchFileChange(noteFile)
   //}
+  //console.log(dayjs().format('[YYYYescape] YYYY-MM-DDTHH:mm:ssZ[Z]'))
+  
   console.log(`NOTE_BUILD_RESULT=${JSON.stringify({targetPath, exists})}`)
 }
 

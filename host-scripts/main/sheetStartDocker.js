@@ -10,6 +10,9 @@ if (checkConfig() === false) {
   process.exit()
 }
 
+const setupTZ = require('./../setupTZ.js')
+setupTZ()
+
 const config = require('./../../config/config.js')
 process.env['NOTES_PATH'] = config.noteFolder
 

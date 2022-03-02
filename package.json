@@ -13,7 +13,8 @@
     "docker-note-build": "node docker-scripts/note/buildTemplate.js",
     "docker-note-watch": "node docker-scripts/note/watchNewNote.js",
     "sheet-docker": "node host-scripts/main/sheetStartDocker.js",
-    "docker-sheet-build": "node docker-scripts/sheet/buildTemplate.js"
+    "docker-sheet-build": "node docker-scripts/sheet/buildTemplate.js",
+    "test-time": "node docker-scripts/test/time.js"
   },
   "repository": {
     "type": "git",
@@ -28,8 +29,10 @@
   "dependencies": {
     "copy-paste": "1.3.0",
     "dayjs": "1.10.7",
+    "luxon": "2.3.1",
     "open": "8.4.0",
     "open-file-explorer": "1.0.2",
+    "temp-dir": "2.0.0",
     "textract": "2.5.0"
   }
 }
