@@ -12,7 +12,7 @@ function copyTemplateToFolder(folder, template) {
   let ext = path.extname(template)
   
   let templatePath = path.resolve(__dirname, './../note-template', template)
-  let targetPath = path.resolve(folder, basename + ext)
+  let targetPath = path.resolve(folder, basename + '.note' + ext)
   //console.log(notePath, fs.existsSync(notePath))
   
   //fs.writeFileSync('/app/notes/test.txt', JSON.stringify([templatePath, targetPath]), 'utf-8')

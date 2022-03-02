@@ -30,7 +30,7 @@ function watchFileChange(notePath) {
 
       let dirname = path.dirname(notePath)
 
-      fs.renameSync(notePath, path.resolve(dirname, newFilename + path.extname(notePath)))
+      fs.renameSync(notePath, path.resolve(dirname, newFilename + '.note' + path.extname(notePath)))
 
       let folderName = path.basename(dirname)
       if (path.basename(dirname).length === 8) {
@@ -41,7 +41,7 @@ function watchFileChange(notePath) {
       //process.exit()
       // https://stackoverflow.com/a/53983383/6645399
       
-      resolve(path.resolve(path.dirname(dirname), folderName, newFilename + path.extname(notePath)))
+      resolve(path.resolve(path.dirname(dirname), folderName, newFilename + '.note' + path.extname(notePath)))
       watcher.close()
     });
   })

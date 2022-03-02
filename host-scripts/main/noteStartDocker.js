@@ -5,21 +5,21 @@ const path = require('path')
 
 process.chdir(path.resolve(__dirname, '../'))
 
-const checkConfig = require('./checkConfig.js')
+const checkConfig = require('./../checkConfig.js')
 if (checkConfig() === false) {
   process.exit()
 }
 
-const config = require('./../config/config.js')
+const config = require('./../../config/config.js')
 process.env['NOTES_PATH'] = config.noteFolder
 
-const getNoteBuildResult = require('./getNoteBuildResult.js')
-const getNoteRenameResult = require('./getNoteRenameResult.js')
-const getTargetPathInHost = require('./getTargetPathInHost.js')
-const copyDateHeader = require('./copyDateHeader.js')
+const getNoteBuildResult = require('./../getNoteBuildResult.js')
+const getNoteRenameResult = require('./../getNoteRenameResult.js')
+const getTargetPathInHost = require('./../getTargetPathInHost.js')
+const copyDateHeader = require('./../copyDateHeader.js')
 
-const openFile = require('./openFile.js')
-const openExplorer = require('./openExplorer.js')
+const openFile = require('./../openFile.js')
+const openExplorer = require('./../openExplorer.js')
 
 //console.log(path.resolve(__dirname, '../'), 2)
 exec(`MY_UID="$(id -u)" MY_GID="$(id -g)" docker-compose run app npm run docker-note-build`, (error, stdout, stderr) => {

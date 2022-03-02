@@ -9,9 +9,11 @@
     "test": "echo \"Error: no test specified\" && exit 1",
     "docker-compose-build": "./docker-compose/docker-compose-build.sh",
     "docker-compose-up": "./docker-compose/docker-compose-up.sh",
-    "note-docker": "node host-scripts/noteStartDocker.js",
+    "note-docker": "node host-scripts/main/noteStartDocker.js",
     "docker-note-build": "node docker-scripts/note/buildTemplate.js",
-    "docker-note-watch": "node docker-scripts/note/watchNewNote.js"
+    "docker-note-watch": "node docker-scripts/note/watchNewNote.js",
+    "sheet-docker": "node host-scripts/main/sheetStartDocker.js",
+    "docker-sheet-build": "node docker-scripts/sheet/buildTemplate.js"
   },
   "repository": {
     "type": "git",
