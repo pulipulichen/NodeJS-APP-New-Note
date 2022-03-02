@@ -8,7 +8,7 @@ const tempDirectory = require('temp-dir')
 
 function checkConfig() {
   let isConfigExists = true
-  if (fs.existsSync(path.resolve('./config2.js')) === false) {
+  if (fs.existsSync(path.resolve(__dirname, './../config/config.js')) === false) {
     let warningFile = path.resolve(tempDirectory, 'nodejs-app-new-note-error.txt')
 
     if (fs.existsSync(warningFile) === false) {

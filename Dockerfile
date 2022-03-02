@@ -6,10 +6,10 @@ RUN mkdir /app
 #Use app directory as development directory
 WORKDIR /app
 
-RUN apt-get update
+#RUN apt-get update
 
 # UPDATE 20220221 
-#RUN echo "20220302-1509"
+RUN echo "20220302-1806"
 COPY package.json ./
 # package.Install the package described in json.
 RUN npm i

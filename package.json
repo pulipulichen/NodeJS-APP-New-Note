@@ -9,8 +9,8 @@
     "test": "echo \"Error: no test specified\" && exit 1",
     "docker-compose-build": "./docker-compose/docker-compose-build.sh",
     "docker-compose-up": "./docker-compose/docker-compose-up.sh",
-    "note-docker": "node host-scripts/note-start-docker.js",
-    "note-docker-exec": "node docker-scripts/note/copy-file.js"
+    "note-docker": "node host-scripts/noteStartDocker.js",
+    "note-docker-exec": "node docker-scripts/note/copyTemplate.js"
   },
   "repository": {
     "type": "git",
@@ -27,6 +27,6 @@
     "dayjs": "1.10.7",
     "open": "8.4.0",
     "open-file-explorer": "1.0.2",
-    "any-text": "1.2.0"
+    "textract": "2.5.0"
   }
 }

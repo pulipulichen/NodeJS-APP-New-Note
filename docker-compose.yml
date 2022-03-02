@@ -7,10 +7,13 @@ services:
     build: .
     #Give the container a name(Any)
     container_name: NoteAdd
+    # https://stackoverflow.com/a/71027261
+    user: ${MY_UID}:${MY_GID}
     #You can keep the container running.
     tty: true
     #Mount the files in the directory to the app directory in the container
     volumes: 
+      - ./package.json:/app/package.json
       - /tmp/.X11-unix:/tmp/.X11-unix
       - ./note-template:/app/note-template
       - ./docker-scripts:/app/docker-scripts
