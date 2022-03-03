@@ -14,7 +14,8 @@
     "docker-note-watch": "node docker-scripts/note/watchNewNote.js",
     "sheet-docker": "node host-scripts/main/sheetStartDocker.js",
     "docker-sheet-build": "node docker-scripts/sheet/buildTemplate.js",
-    "test-time": "node docker-scripts/test/time.js"
+    "test-time": "node docker-scripts/test/time.js",
+    "install-shortcut": "node host-scripts/main/installDesktopShortcut.js"
   },
   "repository": {
     "type": "git",
@@ -33,6 +34,8 @@
     "open": "8.4.0",
     "open-file-explorer": "1.0.2",
     "temp-dir": "2.0.0",
-    "textract": "2.5.0"
+    "textract": "2.5.0",
+    "create-desktop-shortcuts": "1.6.0",
+    "platform-folders": "0.5.4"
   }
 }
