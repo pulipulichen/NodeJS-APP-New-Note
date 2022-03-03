@@ -1,6 +1,5 @@
 /* global __dirname */
 
-
 const createDesktopShortcut = require('create-desktop-shortcuts');
 
 const fs = require('fs')
@@ -9,6 +8,8 @@ const os = require('os')
 const {getDesktopFolder, getHomeFolder} = require('platform-folders')
 
 function main () {
+  buildDockerCompose()
+  
   createShortcut('New Note', 'Add a new note', {
     windows: {
       filePath: path.resolve(__dirname, './../../bin/new-note.exe'),
@@ -84,6 +85,22 @@ function createShortcut(name, comment, config) {
   } else {
     console.log('Could not create the icon or set its permissions (in Linux if "chmod" is set to true, or not set)');
   }
+}
+
+const { exec } = require("child_process");
+function buildDockerCompose () {
+  process.chdir(path.resolve(__dirname, './../../'))
+  exec("docker-compose build", (error, stdout, stderr) => {
+      if (error) {
+          console.log(`error: ${error.message}`);
+          return;
+      }
+      if (stderr) {
+          console.log(`stderr: ${stderr}`);
+          return;
+      }
+      console.log(`stdout: ${stdout}`);
+  });
 }
 
 main()
