@@ -63,19 +63,20 @@ function createShortcut(name, comment, config) {
     baseConfig.linux.name = name
     baseConfig.linux.comment = comment
     baseConfig.linux.type = 'Application'
+    baseConfig.linux.outputPath = '~/.local/share/applications/'
   }
   
   //console.log(baseConfig)
   const shortcutsCreated = createDesktopShortcut(baseConfig);
   
-  if (os.platform() === 'linux') {
-    let desktopPath = path.resolve(getDesktopFolder(), name + ".desktop")
-    
-    // ~danny/.local/share/applications/newitem.desktop
-    let targetPath = path.resolve(getHomeFolder(), '.local/share/applications', name + ".desktop")
-    fs.renameSync(desktopPath, targetPath)
-  }
-  
+//  if (os.platform() === 'linux') {
+//    let desktopPath = path.resolve(getDesktopFolder(), name + ".desktop")
+//    
+//    // ~danny/.local/share/applications/newitem.desktop
+//    let targetPath = path.resolve(getHomeFolder(), '.local/share/applications', name + ".desktop")
+//    fs.renameSync(desktopPath, targetPath)
+//  }
+//  
   // ~danny/.local/share/applications/newitem.desktop
 
   if (shortcutsCreated) {
