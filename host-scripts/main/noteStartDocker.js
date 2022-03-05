@@ -26,6 +26,7 @@ const openExplorer = require('./../openExplorer.js')
 
 //console.log(path.resolve(__dirname, '../'), 2)
 exec(`MY_UID="$(id -u)" MY_GID="$(id -g)" docker-compose run app npm run docker-note-build`, (error, stdout, stderr) => {
+  console.log('After docker-note-build')
   console.log(stdout)
   
   // 直接取得最後一行
@@ -34,8 +35,6 @@ exec(`MY_UID="$(id -u)" MY_GID="$(id -g)" docker-compose run app npm run docker-
   let hostPath = getTargetPathInHost(targetPath)
   //console.log(1)
   
-  openFile(hostPath)
-  //console.log(2)
   //openExplorer(path.dirname(hostPath))
   
   //console.log(hostPath, path.dirname(hostPath), exists)
@@ -57,10 +56,11 @@ exec(`MY_UID="$(id -u)" MY_GID="$(id -g)" docker-compose run app npm run docker-
       
       setTimeout(() => {
         process.exit()
-      }, 3000)
-      
+      }, 30 * 60 * 1000)
     })
     
+    openFile(hostPath)
+    //console.log("After open file:" , hostPath)
   }
   else {
     openExplorer(path.dirname(hostPath))

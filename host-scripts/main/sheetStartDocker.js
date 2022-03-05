@@ -34,7 +34,6 @@ exec(`MY_UID="$(id -u)" MY_GID="$(id -g)" docker-compose run app npm run docker-
   let hostPath = getTargetPathInHost(targetPath)
   //console.log(1)
   
-  openFile(hostPath)
   //console.log(2)
   //openExplorer(path.dirname(hostPath))
   
@@ -59,6 +58,7 @@ exec(`MY_UID="$(id -u)" MY_GID="$(id -g)" docker-compose run app npm run docker-
       
     })
     
+    openFile(hostPath)
   }
   else {
     openExplorer(path.dirname(hostPath))
