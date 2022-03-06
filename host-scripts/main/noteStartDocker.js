@@ -23,6 +23,7 @@ const copyDateHeader = require('./../copyDateHeader.js')
 
 const openFile = require('./../openFile.js')
 const openExplorer = require('./../openExplorer.js')
+const fs = require('fs')
 
 //console.log(path.resolve(__dirname, '../'), 2)
 exec(`MY_UID="$(id -u)" MY_GID="$(id -g)" docker-compose run app npm run docker-note-build`, (error, stdout, stderr) => {
@@ -51,12 +52,18 @@ exec(`MY_UID="$(id -u)" MY_GID="$(id -g)" docker-compose run app npm run docker-
       //console.log(error, stderr, stdout)
       let guestRenamePath = getNoteRenameResult(stdout)
       let hostRenamePath = getTargetPathInHost(guestRenamePath)
+      
+      if (fs.existsSync(hostRenamePath) === false) {
+        process.exit()
+        return false
+      }
+       
       openFile(hostRenamePath)
       openExplorer(path.dirname(hostRenamePath))
       
       setTimeout(() => {
         process.exit()
-      }, 30 * 60 * 1000)
+      }, 3000)
     })
     
     openFile(hostPath)

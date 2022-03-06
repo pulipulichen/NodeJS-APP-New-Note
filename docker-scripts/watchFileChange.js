@@ -30,6 +30,12 @@ function watchFileChange(notePath) {
 
       let dirname = path.dirname(notePath)
 
+      if (notePath === path.resolve(dirname, newFilename + '.note' + path.extname(notePath))) {
+        resolve(notePath)
+        watcher.close()
+        return false
+      }
+
       fs.renameSync(notePath, path.resolve(dirname, newFilename + '.note' + path.extname(notePath)))
 
       let folderName = path.basename(dirname)
