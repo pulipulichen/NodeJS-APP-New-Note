@@ -6,7 +6,7 @@ services:
     #Build a Dockerfile in the same directory
     build: .
     #Give the container a name(Any)
-    container_name: NoteAdd
+    #container_name: NoteAdd
     # https://stackoverflow.com/a/71027261
     user: ${MY_UID}:${MY_GID}
     #You can keep the container running.
