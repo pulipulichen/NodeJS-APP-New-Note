@@ -5,10 +5,13 @@ const path = require('path')
 const getFolder = require('./../getFolder.js')
 const copyTemplateToFolder = require('./../copyTemplateToFolder.js')
 const watchFileChange = require('./../watchFileChange.js')
+const config = require('./../../config/config.js')
 
 async function main() {
   let folder = await getFolder()
-  let {targetPath, exists} = copyTemplateToFolder(folder, 'note-new.docx')
+
+  let templatePath = path.resolve(config.template.note)
+  let {targetPath, exists} = copyTemplateToFolder(folder, templatePath)
   
   //if (noteFile) {
   //  watchFileChange(noteFile)

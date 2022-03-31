@@ -8,7 +8,7 @@ const getDateStirng = require('./getDateStirng.js')
 
 function copyTemplateToFolder(folder, template) {
   let basename = getDateStirng()
-  
+  console.trace(template)
   let ext = path.extname(template)
   
   let templatePath = path.resolve(__dirname, './../note-template', template)

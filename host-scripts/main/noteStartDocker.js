@@ -26,7 +26,10 @@ const openExplorer = require('./../openExplorer.js')
 const fs = require('fs')
 
 //console.log(path.resolve(__dirname, '../'), 2)
-exec(`MY_UID="$(id -u)" MY_GID="$(id -g)" docker-compose run app npm run docker-note-build`, (error, stdout, stderr) => {
+
+let cmd1 = `MY_UID="$(id -u)" MY_GID="$(id -g)" docker-compose run app npm run docker-note-build`
+
+exec(cmd1, (error, stdout, stderr) => {
   console.log('After docker-note-build')
   console.log(stdout)
   

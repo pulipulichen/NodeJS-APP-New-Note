@@ -3,7 +3,12 @@ function getNoteBuildResult (stdout) {
   let lastLine = lines[(lines.length - 1)].trim()
   
   let json = lastLine.slice(lastLine.indexOf('=') + 1)
-  return JSON.parse(json)
+  try {
+    return JSON.parse(json)
+  }
+  catch (e) {
+    console.error('Docker error.')
+  }
 }
 
 module.exports = getNoteBuildResult
