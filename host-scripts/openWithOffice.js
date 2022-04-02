@@ -2,8 +2,13 @@ const open = require('open')
 const os = require('os')
 const { exec } = require("child_process")
 const fs = require('fs')
+const config = require('./../config/config.js')
 
 function getCandicatePath () {
+  if (config.editor && config.editor.note) {
+    return config.editor.note
+  }
+
   const candicates = [
     '/usr/bin/wps',
   ]
