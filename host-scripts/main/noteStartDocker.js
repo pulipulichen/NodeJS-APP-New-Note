@@ -48,9 +48,12 @@ exec(cmd1, (error, stdout, stderr) => {
     
     process.env['GUEST_NOTE_PATH'] = targetPath
     
-    exec(`MY_UID="$(id -u)" MY_GID="$(id -g)" docker-compose run app npm run docker-note-watch`, (error, stdout, stderr) => {
+    let cmd2 = `MY_UID="$(id -u)" MY_GID="$(id -g)" docker-compose run app npm run docker-note-watch`
+    console.log('docker-note-watch', cmd2)
+
+    exec(cmd2, (error, stdout, stderr) => {
       //console.log('555不存在，開始watch')
-      //console.log(targetPath)
+      console.log('After watch', targetPath)
       
       //console.log(error, stderr, stdout)
       let guestRenamePath = getNoteRenameResult(stdout)

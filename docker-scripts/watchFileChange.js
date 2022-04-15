@@ -7,6 +7,7 @@ const textract = require('textract');
 
 function watchFileChange(notePath) {
   return new Promise((resolve) => {
+    console.log('watch', notePath)
     const watcher = fs.watchFile(notePath, async (curr, prev) => {
       // 先確認檔案是否還開啟 
       // 20220302.docx
@@ -14,6 +15,7 @@ function watchFileChange(notePath) {
 
       let filename = path.basename(notePath)
       let lockerFilename = `.~lock.${filename}#`
+      console.log('lockerFilename', lockerFilename)
       let lockerFilepath = path.resolve(path.dirname(notePath), lockerFilename)
 
       if (fs.existsSync(lockerFilepath)) {

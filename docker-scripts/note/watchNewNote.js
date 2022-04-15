@@ -5,7 +5,7 @@ const fs = require('fs')
 
 async function watchNewNote() {
   let notePath = process.env.GUEST_NOTE_PATH
-  //console.log(notePath)
+  console.log('watchNewNote', notePath)
   //fs.writeFileSync('/app/notes/test3.txt', 'ok', 'utf-8')
   let renameFile = await watchFileChange(notePath)
   
