@@ -49,17 +49,18 @@ exec(cmd1, (error, stdout, stderr) => {
     process.env['GUEST_NOTE_PATH'] = targetPath
     
     let cmd2 = `MY_UID="$(id -u)" MY_GID="$(id -g)" docker-compose run app npm run docker-note-watch`
-    console.log('docker-note-watch', cmd2)
+    //console.log('docker-note-watch', cmd2, targetPath)
 
-    exec(cmd2, (error, stdout, stderr) => {
+    exec(cmd2, (error, stdout2, stderr) => {
       //console.log('555不存在，開始watch')
       console.log('After watch', targetPath)
       
-      //console.log(error, stderr, stdout)
-      let guestRenamePath = getNoteRenameResult(stdout)
+      console.log(stdout2)
+      let guestRenamePath = getNoteRenameResult(stdout2)
       let hostRenamePath = getTargetPathInHost(guestRenamePath)
       
       if (fs.existsSync(hostRenamePath) === false) {
+        console.log('沒找到檔案', hostRenamePath)
         process.exit()
         return false
       }
@@ -72,7 +73,10 @@ exec(cmd1, (error, stdout, stderr) => {
       }, 3000)
     })
     
-    openFile(hostPath)
+    setTimeout(() => {
+      openFile(hostPath)
+    }, 1000)
+    
     //console.log("After open file:" , hostPath)
   }
   else {
@@ -82,6 +86,9 @@ exec(cmd1, (error, stdout, stderr) => {
   //console.log('完成')
 });
 
+function sleep(ms = 500) {
+  return new Promise(resolve => setTimeout(resolve, ms));
+}
 
 
 //const waitAndOpenFile = require('./waitAndOpenFile.js')

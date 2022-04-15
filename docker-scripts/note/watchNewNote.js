@@ -10,6 +10,7 @@ async function watchNewNote() {
   let renameFile = await watchFileChange(notePath)
   
   console.log(`NOTE_RENAME=${renameFile}`)
+  process.exit()
   //console.log(process.env.GUEST_NOTE_PATH)
 }
 

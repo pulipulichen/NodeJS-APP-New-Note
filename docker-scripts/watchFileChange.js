@@ -6,27 +6,36 @@ const path = require('path')
 const textract = require('textract');
 
 function watchFileChange(notePath) {
-  return new Promise((resolve) => {
-    console.log('watch', notePath)
+  let isReadyToChange = false
+  return new Promise(async (resolve) => {
+    //console.log('watch', notePath)
+    let doCloseWatcher = false
+
+    let newFilename
     const watcher = fs.watchFile(notePath, async (curr, prev) => {
+      if (isReadyToChange === true) {
+        return false
+      }
+
       // 先確認檔案是否還開啟 
       // 20220302.docx
       // .~lock.20220302.docx#
 
       let filename = path.basename(notePath)
       let lockerFilename = `.~lock.${filename}#`
-      console.log('lockerFilename', lockerFilename)
+      //console.log('lockerFilename', lockerFilename)
       let lockerFilepath = path.resolve(path.dirname(notePath), lockerFilename)
-
-      if (fs.existsSync(lockerFilepath)) {
+      //await sleep(3000)
+      isReadyToChange = true
+      while (fs.existsSync(lockerFilepath)) {
         // 還在編輯中
-        return false
+        await sleep(50)
       }
 
       //console.log(`${noteFile} file Changed`);
       //fs.writeFileSync('/app/notes/test.txt', JSON.stringify([notePath, 'changed']), 'utf-8')
 
-      let newFilename = await parseFilenameFromFile(notePath)
+      newFilename = await parseFilenameFromFile(notePath)
 
       //fs.writeFileSync('/app/notes/test.txt', JSON.stringify([notePath, newFilename, 'changed']), 'utf-8')
 
@@ -35,28 +44,54 @@ function watchFileChange(notePath) {
       if (notePath === path.resolve(dirname, newFilename + '.note' + path.extname(notePath))) {
         resolve(notePath)
         watcher.close()
+        doCloseWatcher = true
+        //process.exit()
         return false
       }
 
+      console.log('before rename')
       fs.renameSync(notePath, path.resolve(dirname, newFilename + '.note' + path.extname(notePath)))
+      console.log('after rename')
 
       let folderName = path.basename(dirname)
       if (path.basename(dirname).length === 8) {
         folderName = newFilename
+        console.log('before rename folder')
         fs.renameSync(dirname, path.resolve(path.dirname(dirname), newFilename))
+        console.log('after rename folder')
       }
 
       //process.exit()
       // https://stackoverflow.com/a/53983383/6645399
       
       resolve(path.resolve(path.dirname(dirname), folderName, newFilename + '.note' + path.extname(notePath)))
-      watcher.close()
+      newFilename = path.resolve(path.dirname(dirname), folderName, newFilename + '.note' + path.extname(notePath))
+      doCloseWatcher = true
+      //process.exit()
+      watcher.close() // 必須在最後
+      return false
     });
     
     // watcher timeout
     setTimeout(() => {
+      if (newFilename.indexOf('.note') === -1) {
+        newFilename = path.resolve(path.dirname(dirname), folderName, newFilename + '.note' + path.extname(notePath))
+      }
+      console.log(newFilename)
+      resolve(newFilename)
       watcher.close()
-    }, 30 * 60 * 1000)
+    }, 10 * 1000)
+
+    while (doCloseWatcher === false) {
+      await sleep(1000)
+    }
+    if (newFilename.indexOf('.note') === -1) {
+      newFilename = path.resolve(path.dirname(dirname), folderName, newFilename + '.note' + path.extname(notePath))
+    }
+    console.log(newFilename)
+    resolve(newFilename)
+    watcher.close()
+    //process.exit()
   })
 }
 
@@ -100,6 +135,10 @@ async function parseFilenameFromFile(notePath) {
     })
   })
 
+}
+
+function sleep(ms = 500) {
+  return new Promise(resolve => setTimeout(resolve, ms));
 }
 
 module.exports = watchFileChange
