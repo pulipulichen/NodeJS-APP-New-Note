@@ -11,6 +11,7 @@ async function main() {
   let folder = await getFolder()
 
   let templatePath = path.resolve(config.template.note)
+  console.log({templatePath})
   let {targetPath, exists} = copyTemplateToFolder(folder, templatePath)
   
   //if (noteFile) {

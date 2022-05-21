@@ -27,15 +27,38 @@ const fs = require('fs')
 
 //console.log(path.resolve(__dirname, '../'), 2)
 
-let cmd1 = `MY_UID="$(id -u)" MY_GID="$(id -g)" docker-compose run app npm run docker-note-build`
+//let cmd1 = "MY_UID=`id -u` MY_GID=`id -g` docker-compose run app npm run docker-note-build"
+let cmd1 = "docker-compose run app npm run docker-note-build"
 
+//let cmd1 = "MY_UID=`id -u` MY_GID=`id -g` docker-compose run app bash"
+console.log(cmd1)
 exec(cmd1, (error, stdout, stderr) => {
+  if (error) {
+      console.error(error)
+  }
+
+  if (stderr) {
+      console.error(stderr)
+  }
+
   console.log('After docker-note-build')
   console.log(stdout)
   
   // 直接取得最後一行
-  let {targetPath, exists} = getNoteBuildResult(stdout)
-  
+  let targetPath
+  let exists
+  let stdoutResult
+
+  try {
+      stdoutResult = getNoteBuildResult(stdout)
+      targetPath = stdoutResult.targetPath
+      exists = stdoutResult.exists
+  }
+  catch (e) {
+      console.log({stdoutResult})
+      console.error(e)
+  }
+
   let hostPath = getTargetPathInHost(targetPath)
   //console.log(1)
   
@@ -48,7 +71,8 @@ exec(cmd1, (error, stdout, stderr) => {
     
     process.env['GUEST_NOTE_PATH'] = targetPath
     
-    let cmd2 = `MY_UID="$(id -u)" MY_GID="$(id -g)" docker-compose run app npm run docker-note-watch`
+    //let cmd2 = `MY_UID="$(id -u)" MY_GID="$(id -g)" docker-compose run app npm run docker-note-watch`
+    let cmd2 = `docker-compose run app npm run docker-note-watch`
     //console.log('docker-note-watch', cmd2, targetPath)
 
     exec(cmd2, (error, stdout2, stderr) => {

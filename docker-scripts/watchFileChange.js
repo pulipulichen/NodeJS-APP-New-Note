@@ -80,7 +80,7 @@ function watchFileChange(notePath) {
       console.log(newFilename)
       resolve(newFilename)
       watcher.close()
-    }, 10 * 1000)
+    }, 30 * 3 * 1000)
 
     while (doCloseWatcher === false) {
       await sleep(1000)

@@ -26,7 +26,10 @@ const openExplorer = require('./../openExplorer.js')
 const fs = require('fs')
 
 //console.log(path.resolve(__dirname, '../'), 2)
-exec(`MY_UID="$(id -u)" MY_GID="$(id -g)" docker-compose run app npm run docker-sheet-build`, (error, stdout, stderr) => {
+//let cmd1 = `MY_UID="$(id -u)" MY_GID="$(id -g)" docker-compose run app npm run docker-sheet-build`
+let cmd1 = `docker-compose run app npm run docker-sheet-build`
+
+exec(cmd1, (error, stdout, stderr) => {
   console.log(stdout)
   
   // 直接取得最後一行
@@ -43,7 +46,10 @@ exec(`MY_UID="$(id -u)" MY_GID="$(id -g)" docker-compose run app npm run docker-
     
     process.env['GUEST_NOTE_PATH'] = targetPath
     
-    exec(`MY_UID="$(id -u)" MY_GID="$(id -g)" docker-compose run app npm run docker-note-watch`, (error, stdout, stderr) => {
+    //let cmd2 = `MY_UID="$(id -u)" MY_GID="$(id -g)" docker-compose run app npm run docker-note-watch`
+    let cmd2 = `docker-compose run app npm run docker-note-watch`
+
+    exec(cmd2, (error, stdout, stderr) => {
       //console.log('555不存在，開始watch')
       //console.log(targetPath)
       

@@ -19,7 +19,7 @@ services:
       - ./note-template:/app/note-template
       - ./docker-scripts:/app/docker-scripts
       - ./config:/app/config
-      - ${NOTES_PATH}:/app/notes
+      - ${NOTES_PATH}:/app/notes:rw
     environment:
       - DISPLAY=${DISPLAY}
       - GUEST_NOTE_PATH=${GUEST_NOTE_PATH}

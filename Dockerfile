@@ -2,17 +2,24 @@
 FROM node:14.0
 
 #Creating an application directory
-RUN mkdir /app
+RUN mkdir -p /app/notes
+
+USER root
+RUN chown -R node /app/notes
+
 #Use app directory as development directory
-WORKDIR /app
+WORKDIR /app/
 
 #RUN apt-get update
 
 # UPDATE 20220221 
-RUN echo "20220302-2117"
+RUN echo "20220302-2118"
 COPY package.json ./
 # package.Install the package described in json.
 RUN npm i
+
+USER node
+WORKDIR /app/notes
 
 # Error: libGL.so.1: cannot open shared object file: No such file or directory
 # https://stackoverflow.com/a/63377623
