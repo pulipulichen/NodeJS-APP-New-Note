@@ -4,9 +4,9 @@ const { exec } = require("child_process")
 const fs = require('fs')
 const config = require('./../config/config.js')
 
-function getCandicatePath () {
-  if (config.editor && config.editor.note) {
-    return config.editor.note
+function getCandicatePath (type = 'note') {
+  if (config.editor && config.editor[type]) {
+    return config.editor[type]
   }
 
   const candicates = [
@@ -26,7 +26,14 @@ async function openWithOffice (filePath) {
     filePath = filePath.slice(1, -1)
   }
   
-  let editor = getCandicatePath()
+  // 先檢查類型
+  let type = 'note'
+  if (filePath.endsWith('.xlsx') || 
+      filePath.endsWith('.xls')) {
+    type = 'sheet'
+  }
+
+  let editor = getCandicatePath(type)
   
   if (!editor) {
     await open(filePath)
