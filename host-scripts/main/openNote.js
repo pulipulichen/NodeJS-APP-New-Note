@@ -6,8 +6,8 @@ const openWithOffice = require('./../openWithOffice.js')
 
 function openNote() {
   getArgv().forEach(filePath => {
-    if (filePath.endsWith('.note.docx')
-            || filePath.endsWith('.note.xlsx')) {
+    if (filePath.endsWith('.note.docx') || 
+        filePath.endsWith('.note.xlsx')) {
       return openWithLibreOffice(filePath)
     }
     else {

@@ -7,7 +7,7 @@ module.exports = {
     sheet: null
     //note: '/usr/share/playonlinux/playonlinux --run "Microsoft Word 2007"',
     //sheet: '/usr/share/playonlinux/playonlinux --run "Microsoft Excel 2007"',
-  },,
+  },
   enableRenameWatch: true,
 
   // 已經Docker化，請固定不要動
